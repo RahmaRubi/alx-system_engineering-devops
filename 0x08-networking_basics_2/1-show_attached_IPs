@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Get all active IPv4 addresses and display them
+ip -4 addr show|awk '/inet / {print $2}' | cut -d'/' -f1
