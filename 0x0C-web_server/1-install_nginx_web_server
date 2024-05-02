@@ -8,5 +8,5 @@ echo "server {
      listen      [::]:80 default_server;
      root        /var/www/html;
      index       index.html index.htm;
-}" > /etc/nginx/sites-available/default
+}" > /etc/nginx/sites-available/defaultvim
 service nginx start
