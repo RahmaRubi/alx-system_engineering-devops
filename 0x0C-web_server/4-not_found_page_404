@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
-# comment
-config_file="/etc/nginx/sites-available/default"
-temp_file=$(mktemp)
+# Customizing a 404-error_page
+
+# Creating a 404 Custom error page
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
-awk '/server {/ { print; print "    error_page 404 /404.html;"; print "    location = /404.html {"; print "        root /var/www/html;"; print "        internal;"; print "    }"; next }1' "$config_file" > "$temp_file"
-sudo mv "$temp_file" "$config_file"
+new_string="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+
+sudo sed -i "s/listen 80 default_server;/$new_string/" /etc/nginx/sites-enabled/default
+
+# Testing configurations for syntax errors
+sudo nginx -t
+
+# restart nginx after implementing changes
+sudo service nginx restart
