@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""
+python script gathers data from a rest API
+"""
+
+
 import requests
 import sys
 
